@@ -16,13 +16,17 @@
 package com.rayanova.solarhijri;
 
 import java.time.DateTimeException;
+import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.chrono.ChronoPeriod;
 import java.time.temporal.ChronoField;
 import static java.time.temporal.ChronoField.*;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalField;
 import java.time.temporal.TemporalUnit;
 import java.time.temporal.UnsupportedTemporalTypeException;
@@ -89,15 +93,15 @@ public class SolarHijriDate implements ChronoLocalDate
 
     public static SolarHijriDate ofYearDay(int prolepticYear, int dayOfYear)
     {
-        int doy = dayOfYear - 1, moy, dom;
-        if (doy < 186) {
-            moy = doy / 31;
-            dom = doy - (moy * 31);
+        int doy0 = dayOfYear - 1, moy0, dom0;
+        if (doy0 < 186) {
+            moy0 = doy0 / 31;
+            dom0 = doy0 - (moy0 * 31);
         } else {
-            moy = (doy - 186) / 30 + 6;
-            dom = doy - 186 - (moy - 6) * 30;
+            moy0 = (doy0 - 186) / 30 + 6;
+            dom0 = doy0 - 186 - (moy0 - 6) * 30;
         }
-        return new SolarHijriDate(prolepticYear, moy + 1, dom + 1);
+        return new SolarHijriDate(prolepticYear, moy0 + 1, dom0 + 1);
     }
 
     public static SolarHijriDate from(TemporalAccessor temporal)
@@ -173,12 +177,24 @@ public class SolarHijriDate implements ChronoLocalDate
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public ChronoLocalDateTime<SolarHijriDate> atTime(LocalTime localTime)
+    {
+        return (ChronoLocalDateTime<SolarHijriDate>) ChronoLocalDate.super.atTime(localTime);
+    }
+
+    @Override
+    public SolarHijriDate with(TemporalAdjuster adjuster)
+    {
+        return (SolarHijriDate) ChronoLocalDate.super.with(adjuster);
+    }
+
+    @Override
     public SolarHijriDate with(TemporalField field, long newValue)
     {
         if (field instanceof ChronoField) {
             ChronoField f = (ChronoField) field;
             f.checkValidValue(newValue);
-            int nvalue = (int) newValue;
             switch (f) {
                 case DAY_OF_WEEK:
                     return plusDays(newValue - getDayOfWeek());
@@ -243,6 +259,12 @@ public class SolarHijriDate implements ChronoLocalDate
     }
 
     @Override
+    public SolarHijriDate plus(TemporalAmount amount)
+    {
+        return (SolarHijriDate) ChronoLocalDate.super.plus(amount);
+    }
+
+    @Override
     public SolarHijriDate plus(long amountToAdd, TemporalUnit unit)
     {
         if (unit instanceof ChronoUnit) {
@@ -299,6 +321,18 @@ public class SolarHijriDate implements ChronoLocalDate
             return this;
         long mjDay = Math.addExact(toEpochDay(), daysToAdd);
         return SolarHijriDate.ofEpochDay(mjDay);
+    }
+
+    @Override
+    public SolarHijriDate minus(TemporalAmount amount)
+    {
+        return (SolarHijriDate) ChronoLocalDate.super.minus(amount);
+    }
+
+    @Override
+    public SolarHijriDate minus(long amountToSubtract, TemporalUnit unit)
+    {
+        return (SolarHijriDate) ChronoLocalDate.super.minus(amountToSubtract, unit);
     }
 
     @Override

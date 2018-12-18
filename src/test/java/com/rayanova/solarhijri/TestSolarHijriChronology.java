@@ -19,21 +19,53 @@ import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ULocale;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.IsoChronology;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+import static java.time.temporal.ChronoUnit.*;
 import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestSolarHijriChronology
 {
     @Test
-    public void testComparison()
+    public void testConversion()
     {
-        LocalDate isoDate = IsoChronology.INSTANCE.dateNow();
-        SolarHijriDate shDate = SolarHijriChronology.INSTANCE.date(isoDate);
-        assertEquals(IsoChronology.INSTANCE.date(shDate), isoDate);
-        assertTrue(shDate.isEqual(isoDate));
+        LocalDate isoNow = IsoChronology.INSTANCE.dateNow();
+        SolarHijriDate now = SolarHijriChronology.INSTANCE.date(isoNow);
+        assertEquals(IsoChronology.INSTANCE.date(now), isoNow);
+        assertTrue(now.isEqual(isoNow));
+        assertTrue(isoNow.isEqual(now));
+        assertFalse(now.isAfter(isoNow));
+        assertFalse(isoNow.isBefore(now));
+    }
+
+    @Test
+    public void testManipulation()
+    {
+        Random rand = ThreadLocalRandom.current();
+        ChronoLocalDate now = SolarHijriChronology.INSTANCE.dateNow();
+        ChronoUnit[] units = {DAYS, WEEKS, MONTHS, YEARS};
+
+        for (ChronoUnit unit : units) {
+            long amount = rand.nextInt(10000 / (int) unit.getDuration().toDays()) + 1L;
+            ChronoLocalDate future = now.plus(amount, unit);
+            ChronoLocalDate past = now.minus(amount, unit);
+
+            try {
+                assertTrue(future.minus(amount, unit).isEqual(now));
+                assertTrue(past.plus(amount, unit).isEqual(now));
+                assertEquals(amount, now.until(future, unit));
+                assertEquals(-amount, now.until(past, unit));
+            } catch (AssertionError ex) {
+                System.err.printf("Assertion failed. unit=%s, amount=%s", unit, amount).println();
+                throw ex;
+            }
+        }
     }
 
     /**
@@ -55,8 +87,8 @@ public class TestSolarHijriChronology
                 assertEquals(date.getLong(ChronoField.MONTH_OF_YEAR), cal.get(Calendar.MONTH) + 1);
                 assertEquals(date.getLong(ChronoField.DAY_OF_MONTH), cal.get(Calendar.DAY_OF_MONTH));
             } catch (AssertionError ex) {
-                System.err.printf("Discrepancy at %s: actual=%s, expected=%s\r\n",
-                        isoDate, format(date), format(cal));
+                System.err.printf("Assertion failed. isoDate=%s, actual=%s, expected=%s",
+                        isoDate, format(date), format(cal)).println();
                 throw ex;
             }
         }
