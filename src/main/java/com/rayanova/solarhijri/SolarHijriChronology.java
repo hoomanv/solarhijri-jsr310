@@ -15,13 +15,17 @@
  */
 package com.rayanova.solarhijri;
 
+import java.lang.reflect.Method;
 import java.time.chrono.AbstractChronology;
+import java.time.chrono.Chronology;
 import java.time.chrono.Era;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.ValueRange;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The Solar Hijri calendar system.
@@ -34,7 +38,19 @@ public class SolarHijriChronology extends AbstractChronology
     /**
      * Singleton instance of the Solar Hijri chronology.
      */
-    public static final SolarHijriChronology INSTANCE = new SolarHijriChronology();
+    public static final SolarHijriChronology INSTANCE;
+
+    static {
+        INSTANCE = new SolarHijriChronology();
+        try {
+            Method method = AbstractChronology.class.getDeclaredMethod("registerChrono", Chronology.class);
+            method.setAccessible(true);
+            method.invoke(null, INSTANCE);
+        } catch (ReflectiveOperationException | RuntimeException ex) {
+            Logger.getLogger(SolarHijriChronology.class.getName())
+                    .log(Level.WARNING, "Could not register SolarHijri chronology.", ex);
+        }
+    }
 
     private SolarHijriChronology()
     {
