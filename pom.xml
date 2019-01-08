@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.rayanova.community</groupId>
     <artifactId>solarhijri-jsr310</artifactId>
-    <version>1.0.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -26,7 +26,7 @@
         <url>https://github.com/rayanova-com/solarhijri-jsr310</url>
         <connection>scm:git:git@github.com:rayanova-com/solarhijri-jsr310.git</connection>
         <developerConnection>scm:git:git@github.com:rayanova-com/solarhijri-jsr310.git</developerConnection>
-      <tag>1.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <distributionManagement>
