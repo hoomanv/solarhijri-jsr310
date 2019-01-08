@@ -24,8 +24,8 @@
 
     <scm>
         <url>https://github.com/rayanova-com/solarhijri-jsr310</url>
-        <connection>scm:git:git://github.com/rayanova-com/solarhijri-jsr310</connection>
-        <developerConnection>scm:git:git://github.com/rayanova-com/solarhijri-jsr310</developerConnection>
+        <connection>scm:git:git@github.com:rayanova-com/solarhijri-jsr310.git</connection>
+        <developerConnection>scm:git:git@github.com:rayanova-com/solarhijri-jsr310.git</developerConnection>
     </scm>
 
     <distributionManagement>
