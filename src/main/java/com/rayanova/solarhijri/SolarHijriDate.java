@@ -34,7 +34,7 @@ import java.time.temporal.UnsupportedTemporalTypeException;
 /**
  * A date in the Solar Hijri calendar system.
  */
-public class SolarHijriDate implements ChronoLocalDate
+public class SolarHijriDate extends AbstractChronoLocalDate
 {
     /**
      * Days since ISO epoch.
@@ -180,13 +180,13 @@ public class SolarHijriDate implements ChronoLocalDate
     @SuppressWarnings("unchecked")
     public ChronoLocalDateTime<SolarHijriDate> atTime(LocalTime localTime)
     {
-        return (ChronoLocalDateTime<SolarHijriDate>) ChronoLocalDate.super.atTime(localTime);
+        return (ChronoLocalDateTime<SolarHijriDate>) super.atTime(localTime);
     }
 
     @Override
     public SolarHijriDate with(TemporalAdjuster adjuster)
     {
-        return (SolarHijriDate) ChronoLocalDate.super.with(adjuster);
+        return (SolarHijriDate) super.with(adjuster);
     }
 
     @Override
@@ -225,7 +225,7 @@ public class SolarHijriDate implements ChronoLocalDate
             }
             throw new UnsupportedTemporalTypeException("Unsupported field: " + field);
         }
-        return (SolarHijriDate) ChronoLocalDate.super.with(field, newValue);
+        return (SolarHijriDate) super.with(field, newValue);
     }
 
     public SolarHijriDate withYear(int year)
@@ -261,7 +261,7 @@ public class SolarHijriDate implements ChronoLocalDate
     @Override
     public SolarHijriDate plus(TemporalAmount amount)
     {
-        return (SolarHijriDate) ChronoLocalDate.super.plus(amount);
+        return (SolarHijriDate) super.plus(amount);
     }
 
     @Override
@@ -288,7 +288,7 @@ public class SolarHijriDate implements ChronoLocalDate
             }
             throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit);
         }
-        return (SolarHijriDate) ChronoLocalDate.super.plus(amountToAdd, unit);
+        return (SolarHijriDate) super.plus(amountToAdd, unit);
     }
 
     public SolarHijriDate plusYears(long yearsToAdd)
@@ -326,13 +326,13 @@ public class SolarHijriDate implements ChronoLocalDate
     @Override
     public SolarHijriDate minus(TemporalAmount amount)
     {
-        return (SolarHijriDate) ChronoLocalDate.super.minus(amount);
+        return (SolarHijriDate) super.minus(amount);
     }
 
     @Override
     public SolarHijriDate minus(long amountToSubtract, TemporalUnit unit)
     {
-        return (SolarHijriDate) ChronoLocalDate.super.minus(amountToSubtract, unit);
+        return (SolarHijriDate) super.minus(amountToSubtract, unit);
     }
 
     @Override
@@ -436,7 +436,7 @@ public class SolarHijriDate implements ChronoLocalDate
     {
         if (other instanceof SolarHijriDate)
             return compareTo((SolarHijriDate) other);
-        return ChronoLocalDate.super.compareTo(other);
+        return super.compareTo(other);
     }
 
     private int compareTo(SolarHijriDate other)
@@ -455,7 +455,7 @@ public class SolarHijriDate implements ChronoLocalDate
     {
         if (other instanceof SolarHijriDate)
             return compareTo((SolarHijriDate) other) > 0;
-        return ChronoLocalDate.super.isAfter(other);
+        return super.isAfter(other);
     }
 
     @Override // override for performance
@@ -463,7 +463,7 @@ public class SolarHijriDate implements ChronoLocalDate
     {
         if (other instanceof SolarHijriDate)
             return compareTo((SolarHijriDate) other) < 0;
-        return ChronoLocalDate.super.isBefore(other);
+        return super.isBefore(other);
     }
 
     @Override // override for performance
@@ -471,7 +471,7 @@ public class SolarHijriDate implements ChronoLocalDate
     {
         if (other instanceof SolarHijriDate)
             return compareTo((SolarHijriDate) other) == 0;
-        return ChronoLocalDate.super.isEqual(other);
+        return super.isEqual(other);
     }
 
     @Override
