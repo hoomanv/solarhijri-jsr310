@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 RAYANOVA.COM
+ * Copyright 2022 UNILOGIC.IR
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.rayanova.solarhijri;
+package ir.unilogic.solarhijri;
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
