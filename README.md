@@ -5,8 +5,8 @@ A JSR-310 implementation of the Solar Hijri calendar system, also called the Sol
 
 ```xml
 <dependency>
-    <groupId>com.rayanova.community</groupId>
+    <groupId>ir.unilogic.common</groupId>
     <artifactId>solarhijri-jsr310</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
