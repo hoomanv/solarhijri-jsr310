@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ir.unilogic.common</groupId>
     <artifactId>solarhijri-jsr310</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -34,7 +34,7 @@
         <url>https://github.com/hoomanv/solarhijri-jsr310</url>
         <connection>scm:git:git@github.com:hoomanv/solarhijri-jsr310.git</connection>
         <developerConnection>scm:git:git@github.com:hoomanv/solarhijri-jsr310.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>3.0.0</tag>
     </scm>
 
     <issueManagement>
