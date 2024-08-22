@@ -48,7 +48,7 @@ public class SolarHijriChronology extends AbstractChronology
             method.invoke(null, INSTANCE);
         } catch (ReflectiveOperationException | RuntimeException ex) {
             Logger.getLogger(SolarHijriChronology.class.getName())
-                    .log(Level.WARNING, "Could not register SolarHijri chronology.", ex);
+                    .log(Level.WARNING, "Could not register SolarHijri chronology. {0}", ex.getMessage());
         }
     }
 
