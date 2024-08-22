@@ -7,7 +7,7 @@ A JSR-310 implementation of the Solar Hijri calendar system, also called the Sol
 <dependency>
     <groupId>ir.unilogic.common</groupId>
     <artifactId>solarhijri-jsr310</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
